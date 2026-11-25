@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart Programmable Power Source</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="dashboard">
+    <header class="dashboard__header">
+      <h1>SMART PROGRAMMABLE POWER SOURCE</h1>
+      
+      <div class="header-controls">
+        <div class="top-buttons">
+          <button id="btnMqtt" class="btn-connect connected">Desconectar Broker</button>
+        </div>
+      </div>
+    </header>
+
+    <div class="global-actions">
+      <button id="btnVerSecuencias" class="btn-secondary">Ver Secuencias Guardadas</button>
+    </div>
+
+    <div class="channels">
+      <!-- CANAL 1 -->
+      <section class="channel" aria-labelledby="channel-one-title">
+        <div class="channel__top">
+          <div class="channel__heading">
+            <span>Canal 1</span>
+            <button class="btn-reiniciar" id="btnReiniciarC1">Reiniciar</button>
+          </div>
+          <div class="channel__controls">
+            <label class="power-switch">
+              <input type="checkbox" id="switchC1">
+              <span class="power-switch__track"><span></span></span>
+              <span class="sr-only">Encender canal 1</span>
+            </label>
+            <label class="action-pill">
+              <input type="checkbox" checked>
+              <span class="action-pill__check" aria-hidden="true">✓</span>
+              <span>CICLICLA</span>
+            </label>
+            <button class="action-pill btn-guardar" data-canal="1" type="button">
+              <span class="action-pill__check" aria-hidden="true">✓</span>
+              <span>GUARDAR<br>SECUENCIA</span>
+            </button>
+            <button class="btn-tabla activar" id="btnTablaC1" data-canal="1">Activar Tabla</button>
+          </div>
+        </div>
+
+        <div class="tabla-container">
+          <table class="sequence-table" id="tablaC1">
+            <thead><tr><th>DURACIÓN (s)</th><th>ESTADO</th></tr></thead>
+            <tbody>
+              <tr>
+                <td><input type="number" class="input-tiempo" min="1" placeholder="Ej. 5"></td>
+                <td>
+                  <select class="input-estado">
+                    <option value="ON">ON</option>
+                    <option value="OFF">OFF</option>
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <td><input type="number" class="input-tiempo" min="1" placeholder="Ej. 10"></td>
+                <td>
+                  <select class="input-estado" disabled>
+                    <option value="OFF">OFF</option>
+                  </select>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <button class="btn-add-fila" data-tabla="tablaC1">+</button>
+        </div>
+
+        <div class="channel__graphs">
+          <h3>Voltaje (Vrms)</h3>
+          <figure class="chart"><canvas id="graficaVoltajeC1" width="400" height="200"></canvas></figure>
+          <h3>Corriente (Irms)</h3>
+          <figure class="chart"><canvas id="graficaCorrienteC1" width="400" height="200"></canvas></figure>
+          <h3>Potencia (W)</h3>
+          <figure class="chart"><canvas id="graficaPotenciaC1" width="400" height="200"></canvas></figure>
+        </div>
+      </section>
+
+      <!-- CANAL 2 -->
+      <section class="channel" aria-labelledby="channel-two-title">
+        <div class="channel__top">
+          <div class="channel__heading">
+            <span>Canal 2</span>
+            <button class="btn-reiniciar" id="btnReiniciarC2">Reiniciar</button>
+          </div>
+          <div class="channel__controls">
+            <label class="power-switch">
+              <input type="checkbox" id="switchC2">
+              <span class="power-switch__track"><span></span></span>
+              <span class="sr-only">Encender canal 2</span>
+            </label>
+            <label class="action-pill">
+              <input type="checkbox" checked>
+              <span class="action-pill__check" aria-hidden="true">✓</span>
+              <span>CICLICLA</span>
+            </label>
+            <button class="action-pill btn-guardar" data-canal="2" type="button">
+              <span class="action-pill__check" aria-hidden="true">✓</span>
+              <span>GUARDAR<br>SECUENCIA</span>
+            </button>
+            <button class="btn-tabla activar" id="btnTablaC2" data-canal="2">Activar Tabla</button>
+          </div>
+        </div>
+
+        <div class="tabla-container">
+          <table class="sequence-table" id="tablaC2">
+            <thead><tr><th>DURACIÓN (s)</th><th>ESTADO</th></tr></thead>
+            <tbody>
+              <tr>
+                <td><input type="number" class="input-tiempo" min="1" placeholder="Ej. 5"></td>
+                <td>
+                  <select class="input-estado">
+                    <option value="ON">ON</option>
+                    <option value="OFF">OFF</option>
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <td><input type="number" class="input-tiempo" min="1" placeholder="Ej. 10"></td>
+                <td>
+                  <select class="input-estado" disabled>
+                    <option value="OFF">OFF</option>
+                  </select>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <button class="btn-add-fila" data-tabla="tablaC2">+</button>
+        </div>
+
+        <div class="channel__graphs">
+          <h3>Voltaje (Vrms)</h3>
+          <figure class="chart"><canvas id="graficaVoltajeC2" width="400" height="200"></canvas></figure>
+          <h3>Corriente (Irms)</h3>
+          <figure class="chart"><canvas id="graficaCorrienteC2" width="400" height="200"></canvas></figure>
+          <h3>Potencia (W)</h3>
+          <figure class="chart"><canvas id="graficaPotenciaC2" width="400" height="200"></canvas></figure>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <div id="modalSecuencias" class="modal">
+    <div class="modal-content">
+      <span class="close-btn" id="closeModal">&times;</span>
+      <h2>Historial de Secuencias</h2>
+      <div id="listaSecuencias" class="lista-secuencias"></div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
